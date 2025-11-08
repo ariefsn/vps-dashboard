@@ -8,8 +8,8 @@
 
 <div class="h-[200px] w-[200px] overflow-auto p-4">
 	<Chart>
-		<Layer type={'svg'} center>
-			{#each { length: segments } as _, segmentIndex}
+		<Layer type="svg" center>
+			{#each { length: segments } as s, segmentIndex ([s, segmentIndex].join('-'))}
 				{@const segmentAngle = (2 * Math.PI) / segments}
 				<Arc
 					startAngle={segmentIndex * segmentAngle}

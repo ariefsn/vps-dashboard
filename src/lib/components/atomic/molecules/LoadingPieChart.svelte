@@ -4,5 +4,7 @@
 </script>
 
 <Card>
-	<Skeleton class="h-[240px] w-[240px] rounded-full" />
+	<div class="flex w-full justify-center">
+		<Skeleton class="h-[240px] w-[240px] rounded-full" />
+	</div>
 </Card>

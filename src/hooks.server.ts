@@ -5,15 +5,6 @@ import type { Handle } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
 import { handleProxy } from 'sveltekit-proxy';
 
-const redirect = (url: string) => {
-	return new Response(null, {
-		status: 302,
-		headers: {
-			location: url
-		}
-	});
-};
-
 const handleParaglide: Handle = ({ event, resolve }) =>
 	paraglideMiddleware(event.request, ({ request, locale }) => {
 		event.request = request;

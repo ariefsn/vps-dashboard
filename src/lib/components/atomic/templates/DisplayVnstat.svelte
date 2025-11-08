@@ -46,32 +46,36 @@
 	);
 </script>
 
-<div class="flex w-full gap-4">
+<div class="flex w-full flex-col gap-4 md:flex-row">
 	<div class="flex flex-col gap-4">
 		<Card class="shadow-lg" title={vnstatLabels.total}>
-			<PieChart
-				data={totalData}
-				totalNumber={formatBytes(data.total.tx + data.total.rx)}
-				label={(v) => {
-					return {
-						Rx: vnstatLabels.received,
-						Tx: vnstatLabels.transmitted
-					}[v.label];
-				}}
-			/>
+			<div class="flex w-full justify-center">
+				<PieChart
+					data={totalData}
+					totalNumber={formatBytes(data.total.tx + data.total.rx)}
+					label={(v) => {
+						return {
+							Rx: vnstatLabels.received,
+							Tx: vnstatLabels.transmitted
+						}[v.label];
+					}}
+				/>
+			</div>
 		</Card>
 
 		<Card class="shadow-lg" title={vnstatLabels.estimated}>
-			<PieChart
-				data={estimatedData}
-				totalNumber={formatBytes(data.estimated.tx + data.estimated.rx)}
-				label={(v) => {
-					return {
-						Rx: vnstatLabels.received,
-						Tx: vnstatLabels.transmitted
-					}[v.label];
-				}}
-			/>
+			<div class="flex w-full justify-center">
+				<PieChart
+					data={estimatedData}
+					totalNumber={formatBytes(data.estimated.tx + data.estimated.rx)}
+					label={(v) => {
+						return {
+							Rx: vnstatLabels.received,
+							Tx: vnstatLabels.transmitted
+						}[v.label];
+					}}
+				/>
+			</div>
 		</Card>
 	</div>
 
@@ -79,19 +83,21 @@
 		{#each data.interfaces as itf, i ([itf.name, i.toString()].join('-'))}
 			<Card title={itf.name} class="w-full">
 				<div class="grid grid-cols-12 gap-8">
-					<div class="col-span-3">
-						<PieChart
-							data={buildTotalData({ rx: itf.total.rx, tx: itf.total.tx })}
-							totalNumber={formatBytes(itf.total.tx + itf.total.rx)}
-							label={(v) => {
-								return {
-									Rx: vnstatLabels.received,
-									Tx: vnstatLabels.transmitted
-								}[v.label];
-							}}
-						/>
+					<div class="col-span-12 lg:col-span-3">
+						<div class="flex w-full justify-center">
+							<PieChart
+								data={buildTotalData({ rx: itf.total.rx, tx: itf.total.tx })}
+								totalNumber={formatBytes(itf.total.tx + itf.total.rx)}
+								label={(v) => {
+									return {
+										Rx: vnstatLabels.received,
+										Tx: vnstatLabels.transmitted
+									}[v.label];
+								}}
+							/>
+						</div>
 					</div>
-					<div class="col-span-9 rounded p-4">
+					<div class="col-span-12 h-[300px] rounded p-4 lg:col-span-9 lg:h-auto">
 						{#key [period, dateFormat, itf.traffics.length].join('-')}
 							<BarChartTraffics data={itf.traffics} {dateFormat} />
 						{/key}

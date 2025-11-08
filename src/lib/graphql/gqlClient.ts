@@ -17,7 +17,7 @@ export const gqlClient = ({
 	timestamp?: string;
 }) => {
 	const baseUrl = (url || '') + '/graphql';
-	let clientUrl = '/api/graphql';
+	const clientUrl = '/api/graphql';
 	let wsUrl = baseUrl.replace('http://', 'ws://');
 	if (baseUrl.startsWith('https://')) {
 		wsUrl = baseUrl.replace('https://', 'wss://');

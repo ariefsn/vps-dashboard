@@ -52,6 +52,7 @@ export const parseZodErrors = <T>(errors: z.ZodIssue[] | undefined): Errors<T> =
 		return undefined;
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const result: Record<string, any> = {};
 
 	for (const err of errors ?? []) {
