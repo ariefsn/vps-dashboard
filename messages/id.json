@@ -1,0 +1,306 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"categories": {
+		"title": "Kategori",
+		"table": {
+			"columns": {
+				"name": "Nama",
+				"color": "Warna"
+			}
+		},
+		"inputs": {
+			"name": {
+				"label": "Nama",
+				"placeholder": "Masukkan nama"
+			},
+			"color": {
+				"label": "Warna",
+				"placeholder": "Masukkan warna"
+			}
+		},
+		"popups": {
+			"delete": {
+				"title": "Hapus Kategori",
+				"description": "Apakah Anda yakin ingin menghapus kategori ini?"
+			}
+		}
+	},
+	"accounts": {
+		"title": "Akun",
+		"table": {
+			"columns": {
+				"name": "Nama",
+				"currency": "Mata Uang"
+			}
+		},
+		"inputs": {
+			"search": {
+				"label": "Cari",
+				"placeholder": "Cari doa..."
+			},
+			"columns": {
+				"label": "Kolom",
+				"placeholder": "Pilih kolom",
+				"search_placeholder": "Cari kolom..."
+			},
+			"name": {
+				"label": "Nama",
+				"placeholder": "Masukkan nama"
+			},
+			"currency": {
+				"label": "Mata Uang",
+				"placeholder": "Pilih mata uang"
+			}
+		},
+		"popups": {
+			"delete": {
+				"title": "Hapus Doa",
+				"description": "Apakah Anda yakin ingin menghapus doa ini?"
+			},
+			"view": {
+				"title": "Detail Doa",
+				"description": ""
+			}
+		}
+	},
+	"users": {
+		"title": "Pengguna",
+		"table": {
+			"columns": {
+				"firstName": "Nama Depan",
+				"lastName": "Nama Belakang",
+				"email": "Email",
+				"email_verified": "Email Terverifikasi",
+				"username": "Nama Pengguna",
+				"phone": "Telepon",
+				"phone_verified": "Telepon Terverifikasi",
+				"role": "Peran",
+				"status": "Status"
+			}
+		},
+		"inputs": {
+			"email": {
+				"label": "Email",
+				"placeholder": "namamu@domain"
+			},
+			"firstName": {
+				"label": "Nama Depan",
+				"placeholder": "John"
+			},
+			"lastName": {
+				"label": "Nama Belakang",
+				"placeholder": "Doe"
+			},
+			"phone": {
+				"label": "Telepon",
+				"placeholder": "+1 (123) 456-7890"
+			},
+			"role": {
+				"label": "Peran",
+				"placeholder": "Pilih peran"
+			},
+			"status": {
+				"label": "Status",
+				"placeholder": "Pilih status"
+			},
+			"password": {
+				"label": "Kata Sandi",
+				"placeholder": "••••••••"
+			}
+		},
+		"popups": {
+			"delete": {
+				"title": "Hapus Pengguna",
+				"description": "Apakah Anda yakin ingin menghapus pengguna ini?"
+			}
+		}
+	},
+	"auth": {
+		"login": {
+			"title": "Masuk",
+			"description": "Masukkan email dan kata sandi Anda di bawah ini untuk login ke akun Anda",
+			"dont_have_account": "Belum punya akun?",
+			"inputs": {
+				"email": {
+					"label": "Email",
+					"placeholder": "namamu@domain"
+				},
+				"password": {
+					"label": "Kata Sandi",
+					"placeholder": "••••••••"
+				}
+			}
+		},
+		"forgot_password": {
+			"title": "Lupa Kata Sandi?",
+			"description": "Silakan masukkan alamat email Anda, dan kami akan mengirimkan instruksinya",
+			"remember_your_password": "Ingat kata sandi Anda?",
+			"inputs": {
+				"email": {
+					"label": "Email",
+					"placeholder": "namamu@domain"
+				}
+			},
+			"buttons": {
+				"send_link": "Kirim Tautan",
+				"resend_link": "Kirim Ulang Tautan"
+			}
+		},
+		"register": {
+			"title": "Daftar",
+			"description": "Masukkan data Anda di bawah ini untuk mendaftarkan akun Anda",
+			"already_have_account": "Sudah punya akun?",
+			"inputs": {
+				"name": {
+					"label": "Nama",
+					"placeholder": "John Doe"
+				},
+				"email": {
+					"label": "Email",
+					"placeholder": "namamu@domain"
+				},
+				"password": {
+					"label": "Kata Sandi",
+					"placeholder": "••••••••"
+				}
+			},
+			"buttons": {
+				"register": "Daftar"
+			}
+		},
+		"reset_password": {
+			"title": "Atur Ulang Kata Sandi",
+			"description": "Silakan isi kata sandi baru Anda, tulis di suatu tempat, jangan sampai hilang 😊",
+			"remember_your_password": "Ingat kata sandi Anda?",
+			"inputs": {
+				"password": {
+					"label": "Kata Sandi",
+					"placeholder": "••••••••"
+				}
+			},
+			"buttons": {
+				"reset": "Reset"
+			}
+		},
+		"logout": {
+			"buttons": {
+				"logout": "Keluar"
+			}
+		},
+		"verify": {
+			"login_other": "Masuk dengan akun lain?",
+			"buttons": {
+				"activate": "Aktifkan"
+			}
+		}
+	},
+	"common": {
+		"table": {
+			"no_data": "Tidak ada data",
+			"columns": {
+				"actions": "Aksi",
+				"view": "Lihat",
+				"edit": "Ubah",
+				"delete": "Hapus"
+			},
+			"pagination": {
+				"first": "Pertama",
+				"last": "Terakhir",
+				"next": "Selanjutnya",
+				"previous": "Sebelumnya"
+			}
+		},
+		"inputs": {
+			"columns": {
+				"label": "Kolom",
+				"placeholder": "Pilih kolom",
+				"search_placeholder": "Cari kolom..."
+			},
+			"search": {
+				"label": "Cari",
+				"placeholder": "Cari..."
+			}
+		},
+		"buttons": {
+			"submit": "Kirim",
+			"reset": "Reset",
+			"new": "Baru",
+			"yes": "Ya",
+			"no": "Tidak",
+			"cancel": "Batal",
+			"yes_process": "Ya, Proses",
+			"save": "Simpan",
+			"close": "Tutup",
+			"ok": "OK",
+			"update": "Perbarui"
+		}
+	},
+	"platforms": {
+		"title": "Platform"
+	},
+	"transactions": {
+		"title": "Transaksi"
+	},
+	"currencies": {
+		"title": "Mata Uang",
+		"table": {
+			"columns": {
+				"name": "Nama",
+				"symbol": "Simbol",
+				"symbol_native": "Simbol Asli",
+				"code": "Kode",
+				"rounding": "Pembulatan",
+				"decimal_digits": "Digit Desimal",
+				"name_plural": "Nama Jamak"
+			}
+		},
+		"inputs": {
+			"name": {
+				"label": "Nama",
+				"placeholder": "Indonesian Rupiah"
+			},
+			"symbol": {
+				"label": "Simbol",
+				"placeholder": "Rp"
+			},
+			"symbol_native": {
+				"label": "Simbol Asli",
+				"placeholder": "Rp"
+			},
+			"code": {
+				"label": "Kode",
+				"placeholder": "IDR"
+			},
+			"rounding": {
+				"label": "Pembulatan",
+				"placeholder": "0"
+			},
+			"decimal_digits": {
+				"label": "Digit Desimal",
+				"placeholder": "0"
+			},
+			"name_plural": {
+				"label": "Nama Jamak",
+				"placeholder": "Indonesian Rupiah"
+			}
+		},
+		"popups": {
+			"delete": {
+				"title": "Hapus Mata Uang",
+				"description": "Apakah Anda yakin ingin menghapus mata uang ini?"
+			}
+		}
+	},
+	"vnstat": {
+		"title": "Vnstat",
+		"received": "Diterima",
+		"transmitted": "Diteruskan",
+		"total": "Total",
+		"estimated": "Estimasi",
+		"hours": "Jam",
+		"days": "Hari",
+		"weeks": "Minggu",
+		"months": "Bulan",
+		"years": "Tahun"
+	}
+}

@@ -1,0 +1,306 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"categories": {
+		"title": "Categories",
+		"table": {
+			"columns": {
+				"name": "Name",
+				"color": "Color"
+			}
+		},
+		"inputs": {
+			"name": {
+				"label": "Name",
+				"placeholder": "Enter name"
+			},
+			"color": {
+				"label": "Color",
+				"placeholder": "Enter color"
+			}
+		},
+		"popups": {
+			"delete": {
+				"title": "Delete Category",
+				"description": "Are you sure you want to delete this category?"
+			}
+		}
+	},
+	"accounts": {
+		"title": "Accounts",
+		"table": {
+			"columns": {
+				"name": "Name",
+				"currency": "Currency"
+			}
+		},
+		"inputs": {
+			"search": {
+				"label": "Search",
+				"placeholder": "Search..."
+			},
+			"columns": {
+				"label": "Columns",
+				"placeholder": "Select columns",
+				"search_placeholder": "Search columns..."
+			},
+			"name": {
+				"label": "Name",
+				"placeholder": "Enter name"
+			},
+			"currency": {
+				"label": "Currency",
+				"placeholder": "Select currency"
+			}
+		},
+		"popups": {
+			"delete": {
+				"title": "Delete Dua",
+				"description": "Are you sure you want to delete this dua?"
+			},
+			"view": {
+				"title": "View Dua Details",
+				"description": ""
+			}
+		}
+	},
+	"users": {
+		"title": "Users",
+		"table": {
+			"columns": {
+				"firstName": "First Name",
+				"lastName": "Last Name",
+				"email": "Email",
+				"email_verified": "Email Verified",
+				"username": "Username",
+				"phone": "Phone",
+				"phone_verified": "Phone Verified",
+				"role": "Role",
+				"status": "Status"
+			}
+		},
+		"inputs": {
+			"email": {
+				"label": "Email",
+				"placeholder": "yourname@domain"
+			},
+			"firstName": {
+				"label": "First Name",
+				"placeholder": "John"
+			},
+			"lastName": {
+				"label": "Last Name",
+				"placeholder": "Doe"
+			},
+			"phone": {
+				"label": "Phone",
+				"placeholder": "+1 (123) 456-7890"
+			},
+			"role": {
+				"label": "Role",
+				"placeholder": "Select role"
+			},
+			"status": {
+				"label": "Status",
+				"placeholder": "Select status"
+			},
+			"password": {
+				"label": "Password",
+				"placeholder": "••••••••"
+			}
+		},
+		"popups": {
+			"delete": {
+				"title": "Delete User",
+				"description": "Are you sure you want to delete this user?"
+			}
+		}
+	},
+	"auth": {
+		"login": {
+			"title": "Login",
+			"description": "Enter your email and password below to login to your account",
+			"dont_have_account": "Don't have an account?",
+			"inputs": {
+				"email": {
+					"label": "Email",
+					"placeholder": "yourname@domain"
+				},
+				"password": {
+					"label": "Password",
+					"placeholder": "••••••••"
+				}
+			}
+		},
+		"forgot_password": {
+			"title": "Forgot Password?",
+			"description": "Please enter your email address, and we'll sent the instruction",
+			"remember_your_password": "Remember your password?",
+			"inputs": {
+				"email": {
+					"label": "Email",
+					"placeholder": "yourname@domain"
+				}
+			},
+			"buttons": {
+				"send_link": "Send Link",
+				"resend_link": "Resend Link"
+			}
+		},
+		"register": {
+			"title": "Sign Up",
+			"description": "Enter your data below to register your account",
+			"already_have_account": "Already have an account?",
+			"inputs": {
+				"name": {
+					"label": "Name",
+					"placeholder": "John Doe"
+				},
+				"email": {
+					"label": "Email",
+					"placeholder": "yourname@domain"
+				},
+				"password": {
+					"label": "Password",
+					"placeholder": "••••••••"
+				}
+			},
+			"buttons": {
+				"register": "Sign Up"
+			}
+		},
+		"reset_password": {
+			"title": "Reset Password",
+			"description": "Please fill your new password, write it somewhere, don't get it lost 😊",
+			"remember_your_password": "Remember your password?",
+			"inputs": {
+				"password": {
+					"label": "Password",
+					"placeholder": "••••••••"
+				}
+			},
+			"buttons": {
+				"reset": "Reset"
+			}
+		},
+		"logout": {
+			"buttons": {
+				"logout": "Logout"
+			}
+		},
+		"verify": {
+			"login_other": "Sign In with another account?",
+			"buttons": {
+				"activate": "Activate"
+			}
+		}
+	},
+	"common": {
+		"table": {
+			"no_data": "No data found",
+			"columns": {
+				"actions": "Actions",
+				"view": "View",
+				"edit": "Edit",
+				"delete": "Delete"
+			},
+			"pagination": {
+				"first": "First",
+				"last": "Last",
+				"next": "Next",
+				"previous": "Previous"
+			}
+		},
+		"inputs": {
+			"search": {
+				"label": "Search",
+				"placeholder": "Search..."
+			},
+			"columns": {
+				"label": "Columns",
+				"placeholder": "Select columns",
+				"search_placeholder": "Search columns..."
+			}
+		},
+		"buttons": {
+			"submit": "Submit",
+			"reset": "Reset",
+			"new": "New",
+			"yes": "Yes",
+			"no": "No",
+			"cancel": "Cancel",
+			"yes_process": "Yes, Process",
+			"save": "Save",
+			"close": "Close",
+			"ok": "OK",
+			"update": "Update"
+		}
+	},
+	"platforms": {
+		"title": "Platform"
+	},
+	"transactions": {
+		"title": "Transactions"
+	},
+	"currencies": {
+		"title": "Currencies",
+		"table": {
+			"columns": {
+				"name": "Name",
+				"symbol": "Symbol",
+				"symbol_native": "Symbol Native",
+				"code": "Code",
+				"rounding": "Rounding",
+				"decimal_digits": "Decimal Digits",
+				"name_plural": "Name Plural"
+			}
+		},
+		"inputs": {
+			"name": {
+				"label": "Name",
+				"placeholder": "USD"
+			},
+			"symbol": {
+				"label": "Symbol",
+				"placeholder": "$"
+			},
+			"symbol_native": {
+				"label": "Symbol Native",
+				"placeholder": "$"
+			},
+			"code": {
+				"label": "Code",
+				"placeholder": "USD"
+			},
+			"rounding": {
+				"label": "Rounding",
+				"placeholder": "0"
+			},
+			"decimal_digits": {
+				"label": "Decimal Digits",
+				"placeholder": "2"
+			},
+			"name_plural": {
+				"label": "Name Plural",
+				"placeholder": "US Dollars"
+			}
+		},
+		"popups": {
+			"delete": {
+				"title": "Delete Currency",
+				"description": "Are you sure you want to delete this currency?"
+			}
+		}
+	},
+	"vnstat": {
+		"title": "Vnstat",
+		"received": "Received",
+		"transmitted": "Transmitted",
+		"total": "Total",
+		"estimated": "Estimated",
+		"hours": "Hours",
+		"days": "Days",
+		"weeks": "Weeks",
+		"months": "Months",
+		"years": "Years"
+	}
+}
