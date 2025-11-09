@@ -26,7 +26,7 @@
 	bind:value
 	variant="outline"
 	{onValueChange}
-	class="sticky top-2 z-10 mb-4 bg-white shadow-lg dark:bg-[unset]"
+	class="sticky top-2 z-10 bg-white shadow-lg dark:bg-[unset]"
 >
 	{#each items as p (p)}
 		<ToggleGroup.Item class="cursor-pointer px-4" value={p}

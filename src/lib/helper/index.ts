@@ -84,6 +84,31 @@ export const formatBytes = (bytes: number) => {
 	return prettyBytes(bytes, { binary: true });
 };
 
+export const formatHz = (freqMhz: number) => {
+	const value = freqMhz / 1000; // MHz → GHz
+	const unit = 'GHz';
+	return `${value.toFixed(2)} ${unit}`;
+};
+
+export const formatUptime = (seconds: number): string => {
+	const days = Math.floor(seconds / (24 * 3600));
+	const hours = Math.floor((seconds % (24 * 3600)) / 3600);
+	const minutes = Math.floor((seconds % 3600) / 60);
+	const secs = seconds % 60;
+
+	if (days > 0) return `${days}d ${hours}h ${minutes}m`;
+	if (hours > 0) return `${hours}h ${minutes}m ${secs}s`;
+	if (minutes > 0) return `${minutes}m ${secs}s`;
+	return `${secs}s`;
+};
+
+export const getDisplaySizeInInches = (widthMm: number, heightMm: number): string => {
+	if (!widthMm || !heightMm) return '';
+	const diagonalMm = Math.sqrt(widthMm ** 2 + heightMm ** 2);
+	const inch = diagonalMm / 25.4;
+	return `${inch.toFixed(0)}"`;
+};
+
 export * from './datetime';
 export * from './flash';
 export * from './logger';

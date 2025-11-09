@@ -3,6 +3,12 @@
 SvelteKit-powered frontend for the VPS Dashboard. It proxies API requests to your backend/agent and signs calls with an HMAC token.
 
 ![Vnstat](./assets/vnstat.png)
+![Fastfetch](./assets/fastfetch.png)
+
+## Features
+
+- Network traffic and estimates via `vnstat`.
+- System information via `fastfetch` (OS, CPU/GPU, memory, disk, local IP, uptime, and more).
 
 ## Quick Start
 

@@ -1,3 +1,4 @@
+import FastfetchApi from './fastfetch';
 import VnstatApi from './vnstat';
 
-export { VnstatApi };
+export { FastfetchApi, VnstatApi };
