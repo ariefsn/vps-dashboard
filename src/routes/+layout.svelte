@@ -2,7 +2,7 @@
 	import { page } from '$app/state';
 	import LangSwitcher from '$lib/components/atomic/atoms/LangSwitcher.svelte';
 	import { Toaster } from '$lib/components/ui/sonner';
-	import { showNotification } from '$lib/helper';
+	import { showNotification } from '$lib/helper/ui';
 	import { Moon, SunMoon } from '@lucide/svelte';
 	import { mode, ModeWatcher, toggleMode } from 'mode-watcher';
 	import { deepMerge, MetaTags } from 'svelte-meta-tags';

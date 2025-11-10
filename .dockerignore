@@ -1,0 +1,7 @@
+# .dockerignore
+node_modules
+.bun
+dist
+build
+.cache
+.vite

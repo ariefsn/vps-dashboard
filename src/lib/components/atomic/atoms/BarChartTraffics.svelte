@@ -1,9 +1,23 @@
 <script lang="ts">
 	import type { Day } from '$lib/graphql/generated';
-	import { formatBytes, formatDate, vnstatLabels } from '$lib/helper';
+	import { formatBytes } from '$lib/helper/common';
+	import { formatDate } from '$lib/helper/datetime';
+	import { m } from '$lib/paraglide/messages';
 	import { BarChart, Tooltip } from 'layerchart';
 
 	let { data = [], dateFormat = '' }: { data?: Day[]; dateFormat?: string } = $props();
+
+	const vnstatLabels = {
+		transmitted: m['vnstat.transmitted']() + ' ↗️',
+		received: m['vnstat.received']() + ' ↙️',
+		total: m['vnstat.total'](),
+		estimated: m['vnstat.estimated'](),
+		hours: m['vnstat.hours'](),
+		days: m['vnstat.days'](),
+		weeks: m['vnstat.weeks'](),
+		months: m['vnstat.months'](),
+		years: m['vnstat.years']()
+	};
 </script>
 
 <BarChart

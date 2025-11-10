@@ -13,11 +13,11 @@
 		formatHz,
 		formatUptime,
 		getDisplaySizeInInches,
-		logger,
 		parseGraphqlError,
-		showNotification,
 		sleep
-	} from '$lib/helper/index.js';
+	} from '$lib/helper/common.js';
+	import { logger } from '$lib/helper/logger.js';
+	import { showNotification } from '$lib/helper/ui.js';
 	import { m } from '$lib/paraglide/messages.js';
 	import { BadgeInfo } from '@lucide/svelte';
 	import { onDestroy, onMount } from 'svelte';

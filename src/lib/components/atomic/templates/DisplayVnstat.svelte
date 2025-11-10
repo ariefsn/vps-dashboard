@@ -1,12 +1,25 @@
 <script lang="ts">
 	import { Period, type VnstatResult } from '$lib/graphql/generated';
-	import { formatBytes, vnstatLabels } from '$lib/helper';
+	import { formatBytes } from '$lib/helper/common';
+	import { m } from '$lib/paraglide/messages';
 	import BarChartTraffics from '../atoms/BarChartTraffics.svelte';
 	import Card from '../atoms/Card.svelte';
 	import PieChart from '../atoms/PieChart.svelte';
 
 	let { data, period, dateFormat }: { data: VnstatResult; period: Period; dateFormat: string } =
 		$props();
+
+	const vnstatLabels = {
+		transmitted: m['vnstat.transmitted']() + ' ↗️',
+		received: m['vnstat.received']() + ' ↙️',
+		total: m['vnstat.total'](),
+		estimated: m['vnstat.estimated'](),
+		hours: m['vnstat.hours'](),
+		days: m['vnstat.days'](),
+		weeks: m['vnstat.weeks'](),
+		months: m['vnstat.months'](),
+		years: m['vnstat.years']()
+	};
 
 	const buildTotalData = ({ rx, tx }: { rx?: number; tx?: number }) => [
 		{

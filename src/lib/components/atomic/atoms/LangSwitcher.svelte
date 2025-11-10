@@ -10,7 +10,8 @@
 	onValueChange={(e) => setLocale(locales.find((l) => l === e) || 'en')}
 >
 	{#each locales as locale (locale)}
-		<ToggleGroup.Item class="cursor-pointer" value={locale}>{locale.toUpperCase()}</ToggleGroup.Item
-		>
+		<ToggleGroup.Item class="cursor-pointer" value={locale}>
+			{locale.toUpperCase()}
+		</ToggleGroup.Item>
 	{/each}
 </ToggleGroup.Root>

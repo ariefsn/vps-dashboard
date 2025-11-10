@@ -1,6 +1,7 @@
 import { env } from '$env/dynamic/private';
 import { APP_NAME } from '$env/static/private';
-import { clearFlash, generateToken, getFlash } from '$lib/helper';
+import { generateToken } from '$lib/helper/common';
+import { clearFlash, getFlash } from '$lib/helper/flash';
 import type { Lang } from '$lib/models';
 import { getLocale } from '$lib/paraglide/runtime';
 import type { MetaTagsProps } from 'svelte-meta-tags';

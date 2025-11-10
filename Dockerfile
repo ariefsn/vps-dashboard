@@ -1,7 +1,7 @@
 # ===================================================
 # Base stage
 # ===================================================
-FROM oven/bun:1.3.0-slim AS base
+FROM oven/bun:1.3.2-slim AS base
 RUN apt update && apt install -y --no-install-recommends ca-certificates curl && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 
@@ -37,7 +37,7 @@ ARG APP_NAME="VPS Dashboard"
 ENV APP_NAME=$APP_NAME
 
 # Build SvelteKit for production
-RUN bun -b run build
+RUN bun run build
 
 # ===================================================
 # Dependencies for production (only prodDeps)

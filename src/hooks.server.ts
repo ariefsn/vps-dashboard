@@ -1,5 +1,5 @@
 import { env } from '$env/dynamic/private';
-import { createLogger } from '$lib/helper';
+import { createLogger } from '$lib/helper/logger';
 import { paraglideMiddleware } from '$lib/paraglide/server';
 import type { Handle } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
