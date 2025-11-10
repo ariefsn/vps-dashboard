@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
 	import Modal from '$lib/components/atomic/atoms/Modal.svelte';
 	import TogglePeriod from '$lib/components/atomic/atoms/TogglePeriod.svelte';
@@ -12,10 +13,12 @@
 		formatHz,
 		formatUptime,
 		getDisplaySizeInInches,
+		logger,
 		parseGraphqlError,
 		showNotification,
 		sleep
 	} from '$lib/helper/index.js';
+	import { m } from '$lib/paraglide/messages.js';
 	import { BadgeInfo } from '@lucide/svelte';
 	import { onDestroy, onMount } from 'svelte';
 
@@ -37,7 +40,7 @@
 	let period = $state<Period>(data.period as Period);
 	let showDeviceInfo = $state<boolean>(false);
 
-	const apis = $derived.by(() => {
+	const apis = () => {
 		const gql = gqlClient({
 			url: data.url,
 			token: data.token,
@@ -48,7 +51,7 @@
 			vnstat: new VnstatApi(gql),
 			fastfetch: new FastfetchApi(gql)
 		};
-	});
+	};
 
 	const onSubscribeVnstat = async () => {
 		vnstat.data = undefined;
@@ -57,8 +60,8 @@
 
 		await sleep(100);
 
-		vnstat.subscription = apis.vnstat
-			.stream({
+		vnstat.subscription = apis()
+			.vnstat.stream({
 				period,
 				// 10 minutes
 				interval: 10 * 60 * 1000
@@ -82,6 +85,8 @@
 
 				vnstat.data = data?.data ? (data.data as VnstatResult) : undefined;
 			});
+
+		logger.info({ event: 'onSubscribeVnstat' }, 'Subscription started');
 	};
 
 	const onSubscribeFastfetch = async () => {
@@ -91,8 +96,8 @@
 
 		await sleep(100);
 
-		fastfetch.subscription = apis.fastfetch
-			.stream({
+		fastfetch.subscription = apis()
+			.fastfetch.stream({
 				// 30 minutes
 				interval: 30 * 60 * 1000
 			})
@@ -115,6 +120,8 @@
 
 				fastfetch.data = data?.data ? (data.data as FastfetchResult) : undefined;
 			});
+
+		logger.info({ event: 'onSubscribeFastfetch' }, 'Subscription started');
 	};
 
 	onMount(() => {
@@ -134,73 +141,72 @@
 	});
 
 	onDestroy(() => {
+		if (!browser) return;
 		vnstat.subscription?.unsubscribe();
 		fastfetch.subscription?.unsubscribe();
+		logger.info({ event: 'OnDestroy' }, 'Subscription closed');
 	});
 
-	const title = $derived.by(() => fastfetch.data?.title);
-	const host = $derived.by(() => fastfetch.data?.host);
-	const os = $derived.by(() => fastfetch.data?.os);
-	const kernel = $derived.by(() => fastfetch.data?.kernel);
-	const uptime = $derived.by(() => fastfetch.data?.uptime);
-	const shell = $derived.by(() => fastfetch.data?.shell);
-	const display = $derived.by(() => fastfetch.data?.display);
-	const de = $derived.by(() => fastfetch.data?.de);
-	const wm = $derived.by(() => fastfetch.data?.wm);
-	const cursor = $derived.by(() => fastfetch.data?.cursor);
-	const font = $derived.by(() => fastfetch.data?.font);
-	const terminal = $derived.by(() => fastfetch.data?.terminal);
-	const cpu = $derived.by(() => fastfetch.data?.cpu);
-	const gpu = $derived.by(() => fastfetch.data?.gpu);
-	const mem = $derived.by(() => fastfetch.data?.memory);
-	const swap = $derived.by(() => fastfetch.data?.swap);
-	const disk = $derived.by(() => fastfetch.data?.disk);
-	const localIp = $derived.by(() => fastfetch.data?.localIp);
-	const battery = $derived.by(() => fastfetch.data?.battery);
-	const power = $derived.by(() => fastfetch.data?.powerAdapter);
-	const locale = $derived.by(() => fastfetch.data?.locale);
+	const ff = $derived.by(() => ({
+		title: fastfetch.data?.title,
+		host: fastfetch.data?.host,
+		os: fastfetch.data?.os,
+		kernel: fastfetch.data?.kernel,
+		uptime: fastfetch.data?.uptime,
+		shell: fastfetch.data?.shell,
+		display: fastfetch.data?.display,
+		de: fastfetch.data?.de,
+		wm: fastfetch.data?.wm,
+		cursor: fastfetch.data?.cursor,
+		font: fastfetch.data?.font,
+		terminal: fastfetch.data?.terminal,
+		terminalFont: fastfetch.data?.terminalFont,
+		cpu: fastfetch.data?.cpu,
+		gpu: fastfetch.data?.gpu,
+		mem: fastfetch.data?.memory,
+		swap: fastfetch.data?.swap,
+		disk: fastfetch.data?.disk,
+		localIp: fastfetch.data?.localIp,
+		battery: fastfetch.data?.battery,
+		power: fastfetch.data?.powerAdapter,
+		locale: fastfetch.data?.locale
+	}));
 
-	setTimeout(() => {
-		console.log('display', display);
-		console.log('gpu', gpu);
-		console.log('cpu', cpu);
-	}, 1000);
-
-	const buildSpecValue = (...values: string[]): string => {
-		return values.filter((v) => v).join(' ');
+	const buildSpecValue = (...values: (string | undefined)[]): string => {
+		return values.filter(Boolean).join(' ');
 	};
 
 	const spec = $derived.by(
 		() =>
 			[
 				{
-					label: 'Hostname',
-					value: buildSpecValue(`${title?.hostName}`)
+					label: m['fastfetch.hostname'](),
+					value: buildSpecValue(`${ff.title?.hostName}`)
 				},
 				{
-					label: 'OS',
+					label: m['fastfetch.os'](),
 					value: buildSpecValue(
-						`${os?.name}`,
-						`${os?.codename}`,
-						`${os?.version}`,
-						`${kernel?.architecture}`
+						`${ff.os?.name}`,
+						`${ff.os?.codename}`,
+						`${ff.os?.version}`,
+						`${ff.kernel?.architecture}`
 					)
 				},
 				{
-					label: 'Kernel',
-					value: buildSpecValue(`${kernel?.name}`, `${kernel?.release}`)
+					label: m['fastfetch.kernel'](),
+					value: buildSpecValue(`${ff.kernel?.name}`, `${ff.kernel?.release}`)
 				},
 				{
-					label: 'Uptime',
-					value: formatUptime((uptime?.uptime ?? 0) / 1000)
+					label: m['fastfetch.uptime'](),
+					value: formatUptime((ff.uptime?.uptime ?? 0) / 1000)
 				},
 				{
-					label: 'Shell',
-					value: buildSpecValue(`${shell?.prettyName}`, `${shell?.version}`)
+					label: m['fastfetch.shell'](),
+					value: buildSpecValue(`${ff.shell?.prettyName}`, `${ff.shell?.version}`)
 				},
 				{
-					label: 'Display',
-					value: display?.map((d) =>
+					label: m['fastfetch.display'](),
+					value: ff.display?.map((d) =>
 						buildSpecValue(
 							`${d.name}`,
 							`${d.output?.width}x${d.output?.height}`,
@@ -213,38 +219,41 @@
 					)
 				},
 				{
-					label: 'DE',
-					value: buildSpecValue(`${de?.prettyName}`)
+					label: m['fastfetch.de'](),
+					value: buildSpecValue(`${ff.de?.prettyName}`)
 				},
 				{
-					label: 'WM',
-					value: buildSpecValue(`${wm?.prettyName}`)
+					label: m['fastfetch.wm'](),
+					value: buildSpecValue(`${ff.wm?.prettyName}`)
 				},
 				{
-					label: 'Font',
-					value: font?.fonts?.map((f) => buildSpecValue(f ?? ''))
+					label: m['fastfetch.font'](),
+					value: ff.font?.fonts?.map((f) => buildSpecValue(f ?? ''))
 				},
 				{
-					label: 'Cursor',
-					value: buildSpecValue(`${cursor?.theme}`, cursor?.size ? `(${cursor?.size})` : '')
-				},
-				{
-					label: 'Terminal',
-					value: buildSpecValue(`${terminal?.prettyName}`)
-				},
-				{
-					label: 'CPU',
+					label: m['fastfetch.cursor'](),
 					value: buildSpecValue(
-						`${cpu?.cpu}`,
-						cpu?.cores?.physical ? `(${cpu?.cores?.physical})` : '',
-						cpu?.frequency?.base
-							? `@ ${formatHz(cpu?.frequency?.base ?? cpu?.frequency?.max ?? 0)}`
+						`${ff.cursor?.theme}`,
+						ff.cursor?.size ? `(${ff.cursor?.size})` : ''
+					)
+				},
+				{
+					label: m['fastfetch.terminal'](),
+					value: buildSpecValue(`${ff.terminal?.prettyName}`)
+				},
+				{
+					label: m['fastfetch.cpu'](),
+					value: buildSpecValue(
+						`${ff.cpu?.cpu}`,
+						ff.cpu?.cores?.physical ? `(${ff.cpu?.cores?.physical})` : '',
+						ff.cpu?.frequency?.base
+							? `@ ${formatHz(ff.cpu?.frequency?.base ?? ff.cpu?.frequency?.max ?? 0)}`
 							: ''
 					)
 				},
 				{
-					label: 'GPU',
-					value: gpu?.map((g) =>
+					label: m['fastfetch.gpu'](),
+					value: ff.gpu?.map((g) =>
 						buildSpecValue(
 							`${g.name}`,
 							g.coreCount ? `(${g.coreCount})` : '',
@@ -254,19 +263,19 @@
 					)
 				},
 				{
-					label: 'Memory',
-					value: `${formatBytes(mem?.used ?? 0)} / ${formatBytes(mem?.total ?? 0)} (${(((mem?.used ?? 0) / (mem?.total ?? 1)) * 100).toFixed(0)}%)`
+					label: m['fastfetch.memory'](),
+					value: `${formatBytes(ff.mem?.used ?? 0)} / ${formatBytes(ff.mem?.total ?? 0)} (${(((ff.mem?.used ?? 0) / (ff.mem?.total ?? 1)) * 100).toFixed(0)}%)`
 				},
 				{
-					label: 'Swap',
-					value: swap?.map(
+					label: m['fastfetch.swap'](),
+					value: ff.swap?.map(
 						(s) =>
 							`${formatBytes(s?.used ?? 0)} / ${formatBytes(s?.total ?? 0)} (${(((s?.used ?? 0) / (s?.total ?? 1)) * 100).toFixed(0)}%)`
 					)
 				},
 				{
-					label: 'Disk',
-					value: disk
+					label: m['fastfetch.disk'](),
+					value: ff.disk
 						?.filter((d) => d.mountpoint === '/')
 						.map(
 							(d) =>
@@ -274,20 +283,20 @@
 						)
 				},
 				{
-					label: 'Local IP',
-					value: localIp?.map((i) => `${i.ipv4} (${i.name})`)
+					label: m['fastfetch.local_ip'](),
+					value: ff.localIp?.map((i) => `${i.ipv4} (${i.name})`)
 				},
 				{
-					label: 'Battery',
-					value: battery?.map((b) => `${b.capacity}% [${b.status}] (${b.modelName})`)
+					label: m['fastfetch.battery'](),
+					value: ff.battery?.map((b) => `${b.capacity}% [${b.status}] (${b.modelName})`)
 				},
 				{
-					label: 'Power Adapter',
-					value: power?.map((p) => `${p.name} (${p.manufacturer})`)
+					label: m['fastfetch.power_adapter'](),
+					value: ff.power?.map((p) => `${p.name} (${p.manufacturer})`)
 				},
 				{
-					label: 'Locale',
-					value: locale
+					label: m['fastfetch.locale'](),
+					value: ff.locale
 				}
 			].filter((d) => {
 				if (typeof d.value === 'string') return d.value.replaceAll('()', '').trim().length > 0;
@@ -301,9 +310,9 @@
 {#if fastfetch.data}
 	<Modal
 		title={buildSpecValue(
-			`${host?.name}`,
-			`${host?.version}`,
-			host?.vendor ? `[${host?.vendor}]` : ''
+			`${ff.host?.name}`,
+			`${ff.host?.version}`,
+			ff.host?.vendor ? `[${ff.host?.vendor}]` : ''
 		)}
 		open={showDeviceInfo}
 		class="!max-w-3/4 md:!max-w-1/2"
